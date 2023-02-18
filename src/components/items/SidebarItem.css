@@ -1,0 +1,33 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.item:hover {
+  background-color: #f2f2f2;
+}
+
+.item .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.item .label {
+  flex: 1;
+}
+
+.item .subitems {
+  display: none;
+}
+
+.item.open > .subitems {
+  display: block;
+}
