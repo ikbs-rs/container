@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 function SidebarItem(props) {
-  const { name, icon, children } = props.data;
+  console.log(props.data)
+  const { TITLE, ICON, children , menuid} = props.data;
   const [isOpen, setIsOpen] = React.useState(false);
 
   const hasChildren = children && children.length;
@@ -14,15 +15,15 @@ function SidebarItem(props) {
 
   return (
     <li>
-      <div className="item">
+      <div className="item" key={menuid}>
         {hasChildren && (
           <div className="toggle" onClick={handleToggle}>
             <FontAwesomeIcon icon={isOpen ? faChevronDown : faChevronRight} />
           </div>
         )}
-        <div className="name">{name}</div>
+        <div className="name">{TITLE}</div>
         <div className="icon">
-          <FontAwesomeIcon icon={icon} />
+          <FontAwesomeIcon icon={ICON} />
         </div>
       </div>
       {hasChildren && (

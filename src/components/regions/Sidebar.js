@@ -1,51 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import SidebarItem from "../items/SidebarItem";
-
-const menuData = [
-  {
-    name: "Item 1",
-    icon: faChevronRight,
-    children: [
-      {
-        name: "Child Item 1",
-      },
-      {
-        name: "Child Item 2",
-      },
-    ],
-  },
-  {
-    name: "Item 2",
-    icon: faChevronRight,
-  },
-  {
-    name: "Item 3",
-    icon: faChevronRight,
-    children: [
-      {
-        name: "Child Item 3",
-      },
-      {
-        name: "Child Item 4",
-        children: [
-          {
-            name: "Grandchild Item 1",
-          },
-          {
-            name: "Grandchild Item 2",
-          },
-        ],
-      },
-    ],
-  },
-];
+import axios from "axios";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8302/adm/menu/menu/1");
+        setItems(response.data.items);
+      } catch (error) {
+        console.error(error);
+        setItems([]);
+      }
+    };
+
+    fetchMenuData();
+  }, []);
+  //console.kog(items)
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -53,7 +30,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <ul>
-        {menuData.map((item, index) => (
+        {items.map((item, index) => (
           <SidebarItem key={index} data={item} />
         ))}
       </ul>
